@@ -1,0 +1,597 @@
+```html
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan: Safmei & Jaehyun</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bugis: {
+                            red: '#700000',
+                            crimson: '#8B0000',
+                            gold: '#D4AF37',
+                            darkgold: '#B8860B',
+                            champagne: '#FDFBF7',
+                            cream: '#F7F1E5',
+                            charcoal: '#1A1A1A',
+                            dark: '#0F0F0F'
+                        }
+                    },
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0F0F0F;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D4AF37;
+            border-radius: 4px;
+        }
+        
+        /* Bugis Motif Pattern Overlay */
+        .bugis-pattern {
+            background-color: #700000;
+            background-image: radial-gradient(#D4AF37 0.75px, transparent 0.75px), radial-gradient(#D4AF37 0.75px, #700000 0.75px);
+            background-size: 30px 30px;
+            background-position: 0 0,15px 15px;
+            opacity: 0.95;
+        }
+        
+        .bugis-border {
+            border: 2px solid #D4AF37;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FFF099 0%, #D4AF37 50%, #997A15 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .gold-gradient-bg {
+            background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+        }
+
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+            animation: spin-slow 12s linear infinite;
+        }
+    </style>
+</head>
+<body class="bg-bugis-dark text-bugis-champagne font-sans overflow-x-hidden select-none">
+
+    <!-- AUDIO PLAYER -->
+    <audio id="bg-music" loop>
+        <!-- Beauty in White Audio Track -->
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-wedding-piano-116084.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- FLOATING AUDIO CONTROL -->
+    <button id="music-control" onclick="toggleMusic()" class="fixed top-5 right-5 z-40 w-12 h-12 bg-bugis-crimson border-2 border-bugis-gold rounded-full flex items-center justify-center text-bugis-gold shadow-lg transform hover:scale-110 transition duration-300 hidden">
+        <i id="music-icon" class="fas font-solid fa-music animate-spin-slow"></i>
+    </button>
+
+    <!-- SCREEN COVER OVERLAY -->
+    <div id="cover-screen" class="fixed inset-0 z-50 bugis-pattern flex flex-col justify-between items-center text-center p-6 transition-opacity duration-1000 ease-in-out">
+        <div class="mt-8">
+            <div class="inline-block p-2 border-2 border-bugis-gold rounded-full mb-3">
+                <i class="fas fa-crown text-bugis-gold text-2xl"></i>
+            </div>
+            <p class="tracking-widest uppercase text-xs text-bugis-gold font-semibold">The Wedding Of</p>
+        </div>
+
+        <div class="my-auto">
+            <h1 class="font-cinzel text-4xl sm:text-6xl font-bold gold-gradient-text mb-2 tracking-wider">Safmei & Jaehyun</h1>
+            <p class="text-sm sm:text-base text-bugis-cream italic">03 November 2026</p>
+            <div class="w-32 h-0.5 bg-bugis-gold mx-auto my-4 relative">
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <span class="bg-bugis-red px-2 text-bugis-gold text-xs">❖</span>
+                </div>
+            </div>
+            <p class="text-xs text-gray-300 max-w-xs mx-auto">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+            <h3 class="font-semibold text-lg text-bugis-gold mt-1">Tamu Undangan</h3>
+        </div>
+
+        <div class="mb-10 w-full max-w-xs">
+            <button onclick="openInvitation()" class="w-full py-3.5 px-6 gold-gradient-bg text-bugis-dark font-bold font-cinzel text-sm rounded-full shadow-xl hover:brightness-110 transform active:scale-95 transition flex items-center justify-center gap-2">
+                <i class="fas fa-envelope-open"></i> BUKA UNDANGAN
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main id="main-content" class="max-w-md mx-auto bg-bugis-dark border-x border-bugis-gold/30 min-h-screen relative pb-24 shadow-2xl">
+        
+        <!-- HERO / HEADER SECTION -->
+        <section id="home" class="relative min-h-screen bugis-pattern flex flex-col items-center justify-center text-center p-6 border-b border-bugis-gold/40">
+            <div class="absolute inset-0 bg-black/40"></div>
+            <div class="relative z-10">
+                <div class="w-20 h-20 mx-auto mb-4 border-2 border-bugis-gold rounded-full p-1 flex items-center justify-center">
+                    <div class="w-full h-full border border-bugis-gold/60 rounded-full flex items-center justify-center">
+                        <span class="font-cinzel text-2xl font-bold text-bugis-gold">S&J</span>
+                    </div>
+                </div>
+                <h2 class="text-xs uppercase tracking-[0.3em] text-bugis-gold font-semibold mb-2">Walimatul 'Ursy</h2>
+                <h1 class="font-cinzel text-4xl font-extrabold gold-gradient-text mb-4">Safmei & Jaehyun</h1>
+                <p class="text-sm text-bugis-cream font-light mb-6">Selasa, 03 November 2026</p>
+                
+                <!-- Ornamen Garis -->
+                <div class="flex items-center justify-center gap-3 text-bugis-gold mb-8">
+                    <div class="h-[1px] w-12 bg-bugis-gold/60"></div>
+                    <i class="fas fa-gem text-xs"></i>
+                    <div class="h-[1px] w-12 bg-bugis-gold/60"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AYAT SUCI / QUOTE -->
+        <section class="py-12 px-6 text-center bg-bugis-charcoal/50 relative border-b border-bugis-gold/20">
+            <div class="bugis-border p-6 rounded-2xl bg-bugis-dark/90 relative">
+                <div class="text-bugis-gold text-2xl mb-3"><i class="fas fa-quote-left"></i></div>
+                <p class="text-xs sm:text-sm text-gray-300 leading-relaxed italic mb-4 font-light">
+                    "Dan di antara tanda-tanda (kebesaran-Nya) ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang."
+                </p>
+                <p class="font-cinzel text-xs text-bugis-gold font-bold">QS. Ar-Rum: 21</p>
+            </div>
+        </section>
+
+        <!-- MEMPELAI / PROFIL -->
+        <section id="profile" class="py-12 px-6 space-y-12 border-b border-bugis-gold/20">
+            <div class="text-center mb-8">
+                <h2 class="font-cinzel text-2xl font-bold text-bugis-gold">Pasangan Mempelai</h2>
+                <p class="text-xs text-gray-400 mt-1">Dengan memohon rahmat dan ridho Allah SWT</p>
+            </div>
+
+            <!-- MEMPELAI WANITA -->
+            <div class="text-center space-y-4">
+                <div class="relative w-44 h-56 mx-auto">
+                    <div class="absolute inset-0 bugis-border rounded-t-full transform rotate-3"></div>
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600" alt="Safmei" class="w-full h-full object-cover rounded-t-full border-2 border-bugis-gold relative z-10 shadow-lg">
+                </div>
+                <div>
+                    <h3 class="font-cinzel text-2xl font-bold text-bugis-gold">Safmei</h3>
+                    <p class="text-xs text-gray-300 mt-1">Putri dari Bapak Jaemin & Ibu Karin</p>
+                    <a href="https://instagram.com/safmei_" target="_blank" class="inline-flex items-center gap-1 text-xs text-bugis-gold hover:underline mt-2">
+                        <i class="fab fa-instagram"></i> @safmei_
+                    </a>
+                </div>
+            </div>
+
+            <div class="text-center text-bugis-gold text-xl font-cinzel">&</div>
+
+            <!-- MEMPELAI PRIA -->
+            <div class="text-center space-y-4">
+                <div class="relative w-44 h-56 mx-auto">
+                    <div class="absolute inset-0 bugis-border rounded-t-full transform -rotate-3"></div>
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600" alt="Jaehyun" class="w-full h-full object-cover rounded-t-full border-2 border-bugis-gold relative z-10 shadow-lg">
+                </div>
+                <div>
+                    <h3 class="font-cinzel text-2xl font-bold text-bugis-gold">Jaehyun</h3>
+                    <p class="text-xs text-gray-300 mt-1">Putra dari Bapak San & Ibu Siti</p>
+                    <a href="https://instagram.com/jaehyun_" target="_blank" class="inline-flex items-center gap-1 text-xs text-bugis-gold hover:underline mt-2">
+                        <i class="fab fa-instagram"></i> @jaehyun_
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- COUNTDOWN TIMER -->
+        <section class="py-10 px-6 text-center bugis-pattern relative border-b border-bugis-gold/30">
+            <h2 class="font-cinzel text-xl font-bold text-bugis-gold mb-6">Hitung Mundur Acara</h2>
+            
+            <div class="grid grid-cols-4 gap-2 text-center" id="countdown">
+                <div class="bg-bugis-dark/90 border border-bugis-gold/50 rounded-lg p-3">
+                    <span id="days" class="font-cinzel text-2xl font-bold text-bugis-gold block">00</span>
+                    <span class="text-[10px] uppercase text-gray-300">Hari</span>
+                </div>
+                <div class="bg-bugis-dark/90 border border-bugis-gold/50 rounded-lg p-3">
+                    <span id="hours" class="font-cinzel text-2xl font-bold text-bugis-gold block">00</span>
+                    <span class="text-[10px] uppercase text-gray-300">Jam</span>
+                </div>
+                <div class="bg-bugis-dark/90 border border-bugis-gold/50 rounded-lg p-3">
+                    <span id="minutes" class="font-cinzel text-2xl font-bold text-bugis-gold block">00</span>
+                    <span class="text-[10px] uppercase text-gray-300">Menit</span>
+                </div>
+                <div class="bg-bugis-dark/90 border border-bugis-gold/50 rounded-lg p-3">
+                    <span id="seconds" class="font-cinzel text-2xl font-bold text-bugis-gold block">00</span>
+                    <span class="text-[10px] uppercase text-gray-300">Detik</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- DETAIL ACARA -->
+        <section id="event" class="py-12 px-6 space-y-6 border-b border-bugis-gold/20">
+            <div class="text-center mb-6">
+                <h2 class="font-cinzel text-2xl font-bold text-bugis-gold">Rangkaian Acara</h2>
+                <p class="text-xs text-gray-400">Selasa, 03 November 2026</p>
+            </div>
+
+            <!-- AKAD NIKAH -->
+            <div class="bugis-border p-6 rounded-2xl bg-bugis-charcoal/40 text-center space-y-3">
+                <div class="w-10 h-10 mx-auto bg-bugis-crimson border border-bugis-gold rounded-full flex items-center justify-center text-bugis-gold">
+                    <i class="fas fa-ring"></i>
+                </div>
+                <h3 class="font-cinzel text-xl font-bold text-bugis-gold">Akad Nikah</h3>
+                <p class="text-xs text-gray-300"><i class="far fa-clock text-bugis-gold mr-1"></i> 08.00 - 10.00 WIB</p>
+                <p class="text-xs text-gray-300"><i class="fas fa-map-marker-alt text-bugis-gold mr-1"></i> Kediaman Mempelai Wanita</p>
+                <p class="text-xs text-gray-400">Jl. Mangga No. 12, Kel. Kalianyar, Bangil, Pasuruan, Jawa Timur</p>
+            </div>
+
+            <!-- RESEPSI -->
+            <div class="bugis-border p-6 rounded-2xl bg-bugis-charcoal/40 text-center space-y-3">
+                <div class="w-10 h-10 mx-auto bg-bugis-crimson border border-bugis-gold rounded-full flex items-center justify-center text-bugis-gold">
+                    <i class="fas fa-glass-cheers"></i>
+                </div>
+                <h3 class="font-cinzel text-xl font-bold text-bugis-gold">Resepsi</h3>
+                <p class="text-xs text-gray-300"><i class="far fa-clock text-bugis-gold mr-1"></i> 11.00 WIB - Selesai</p>
+                <p class="text-xs text-gray-300"><i class="fas fa-map-marker-alt text-bugis-gold mr-1"></i> Gedung Serbaguna</p>
+                <p class="text-xs text-gray-400">Jl. Mangga No. 12, Kel. Kalianyar, Bangil, Pasuruan, Jawa Timur</p>
+            </div>
+
+            <!-- ACTION BUTTONS -->
+            <div class="space-y-3 pt-2">
+                <a href="https://maps.google.com/?q=Jl.+Mangga+No.+12,+Kalianyar,+Bangil,+Pasuruan" target="_blank" class="w-full py-3 px-4 gold-gradient-bg text-bugis-dark font-bold text-xs rounded-xl flex items-center justify-center gap-2 shadow-lg hover:brightness-110 transition">
+                    <i class="fas fa-map-marked-alt"></i> Buka Petunjuk Peta Google Maps
+                </a>
+                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Pernikahan+Safmei+%26+Jaehyun&dates=20261103T010000Z/20261103T070000Z&details=Acara+Pernikahan+Safmei+dan+Jaehyun&location=Jl.+Mangga+No.+12,+Kalianyar,+Bangil,+Pasuruan" target="_blank" class="w-full py-3 px-4 border border-bugis-gold text-bugis-gold font-bold text-xs rounded-xl flex items-center justify-center gap-2 hover:bg-bugis-gold/10 transition">
+                    <i class="far fa-calendar-alt"></i> Simpan Tanggal (Google Calendar)
+                </a>
+            </div>
+        </section>
+
+        <!-- GALERI PREWEDDING -->
+        <section id="gallery" class="py-12 px-6 border-b border-bugis-gold/20">
+            <div class="text-center mb-8">
+                <h2 class="font-cinzel text-2xl font-bold text-bugis-gold">Galeri Prewedding</h2>
+                <p class="text-xs text-gray-400">Momen Bahagia Kami</p>
+            </div>
+
+            <!-- MASONRY GRID -->
+            <div class="grid grid-cols-2 gap-3">
+                <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&q=80&w=600" onclick="openLightbox(this.src)" class="w-full h-40 object-cover rounded-lg border border-bugis-gold/40 cursor-pointer hover:opacity-80 transition" alt="Prewedding 1">
+                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=600" onclick="openLightbox(this.src)" class="w-full h-56 object-cover rounded-lg border border-bugis-gold/40 cursor-pointer hover:opacity-80 transition" alt="Prewedding 2">
+                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=600" onclick="openLightbox(this.src)" class="w-full h-56 object-cover rounded-lg border border-bugis-gold/40 cursor-pointer hover:opacity-80 transition -mt-16" alt="Prewedding 3">
+                <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&q=80&w=600" onclick="openLightbox(this.src)" class="w-full h-40 object-cover rounded-lg border border-bugis-gold/40 cursor-pointer hover:opacity-80 transition" alt="Prewedding 4">
+                <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&q=80&w=600" onclick="openLightbox(this.src)" class="w-full h-40 object-cover rounded-lg border border-bugis-gold/40 cursor-pointer hover:opacity-80 transition" alt="Prewedding 5">
+                <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&q=80&w=600" onclick="openLightbox(this.src)" class="w-full h-40 object-cover rounded-lg border border-bugis-gold/40 cursor-pointer hover:opacity-80 transition" alt="Prewedding 6">
+            </div>
+        </section>
+
+        <!-- AMPLOP DIGITAL / GIFT -->
+        <section class="py-12 px-6 border-b border-bugis-gold/20">
+            <div class="text-center mb-8">
+                <h2 class="font-cinzel text-2xl font-bold text-bugis-gold">Amplop Digital</h2>
+                <p class="text-xs text-gray-400">Doa Restu Anda merupakan karunia yang sangat berarti bagi kami.</p>
+            </div>
+
+            <div class="space-y-4">
+                <!-- BANK BCA -->
+                <div class="bugis-border p-5 rounded-xl bg-bugis-charcoal/60 relative">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="font-bold text-sm text-blue-400 tracking-wider">BCA</span>
+                        <i class="fas fa-credit-card text-bugis-gold"></i>
+                    </div>
+                    <p class="text-xs text-gray-400">No. Rekening:</p>
+                    <p class="font-mono text-lg font-bold text-bugis-champagne tracking-wider my-1" id="rekening-bca">8830912839</p>
+                    <p class="text-xs text-bugis-gold mb-4">a.n. Safmei</p>
+                    <button onclick="copyToClipboard('8830912839', 'BCA')" class="w-full py-2 border border-bugis-gold text-bugis-gold text-xs rounded-lg hover:bg-bugis-gold hover:text-bugis-dark transition font-semibold flex items-center justify-center gap-2">
+                        <i class="far fa-copy"></i> Salin No. Rekening
+                    </button>
+                </div>
+
+                <!-- BANK MANDIRI -->
+                <div class="bugis-border p-5 rounded-xl bg-bugis-charcoal/60 relative">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="font-bold text-sm text-yellow-500 tracking-wider">MANDIRI</span>
+                        <i class="fas fa-credit-card text-bugis-gold"></i>
+                    </div>
+                    <p class="text-xs text-gray-400">No. Rekening:</p>
+                    <p class="font-mono text-lg font-bold text-bugis-champagne tracking-wider my-1" id="rekening-mandiri">1420019283741</p>
+                    <p class="text-xs text-bugis-gold mb-4">a.n. Jaehyun</p>
+                    <button onclick="copyToClipboard('1420019283741', 'Mandiri')" class="w-full py-2 border border-bugis-gold text-bugis-gold text-xs rounded-lg hover:bg-bugis-gold hover:text-bugis-dark transition font-semibold flex items-center justify-center gap-2">
+                        <i class="far fa-copy"></i> Salin No. Rekening
+                    </button>
+                </div>
+
+                <!-- QRIS -->
+                <div class="bugis-border p-5 rounded-xl bg-bugis-charcoal/60 text-center">
+                    <i class="fas fa-qrcode text-3xl text-bugis-gold mb-2"></i>
+                    <h4 class="font-cinzel text-sm font-bold text-bugis-gold mb-1">QRIS Hadiah Digital</h4>
+                    <p class="text-xs text-gray-400 mb-3">Pindai kode QR berikut untuk memberikan hadiah digital</p>
+                    <button onclick="openLightbox('https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=AmplopDigitalSafmeiJaehyun')" class="py-2 px-4 gold-gradient-bg text-bugis-dark font-bold text-xs rounded-lg hover:brightness-110 transition inline-flex items-center gap-2">
+                        <i class="fas fa-expand"></i> Tampilkan QR Code
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- UCAPAN & RSVP -->
+        <section id="rsvp" class="py-12 px-6">
+            <div class="text-center mb-8">
+                <h2 class="font-cinzel text-2xl font-bold text-bugis-gold">Ucapan & Konfirmasi</h2>
+                <p class="text-xs text-gray-400">Berikan ucapan doa restu & konfirmasi kehadiran Anda</p>
+            </div>
+
+            <!-- FORM -->
+            <form id="rsvp-form" onsubmit="submitRSVP(event)" class="space-y-4 bugis-border p-5 rounded-xl bg-bugis-charcoal/40 mb-8">
+                <div>
+                    <label class="block text-xs text-bugis-gold font-semibold mb-1">Nama Lengkap</label>
+                    <input type="text" id="guest-name" required placeholder="Masukkan Nama Anda" class="w-full px-3 py-2 text-xs bg-bugis-dark border border-bugis-gold/40 rounded-lg text-bugis-champagne focus:outline-none focus:border-bugis-gold">
+                </div>
+                <div>
+                    <label class="block text-xs text-bugis-gold font-semibold mb-1">Konfirmasi Kehadiran</label>
+                    <select id="guest-status" class="w-full px-3 py-2 text-xs bg-bugis-dark border border-bugis-gold/40 rounded-lg text-bugis-champagne focus:outline-none focus:border-bugis-gold">
+                        <option value="Hadir">Hadir</option>
+                        <option value="Tidak Hadir">Tidak Hadir</option>
+                        <option value="Masih Ragu">Masih Ragu</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs text-bugis-gold font-semibold mb-1">Jumlah Tamu</label>
+                    <input type="number" id="guest-count" min="1" max="5" value="1" class="w-full px-3 py-2 text-xs bg-bugis-dark border border-bugis-gold/40 rounded-lg text-bugis-champagne focus:outline-none focus:border-bugis-gold">
+                </div>
+                <div>
+                    <label class="block text-xs text-bugis-gold font-semibold mb-1">Pesan & Doa Restu</label>
+                    <textarea id="guest-message" rows="3" required placeholder="Tulis ucapan selamat & doa..." class="w-full px-3 py-2 text-xs bg-bugis-dark border border-bugis-gold/40 rounded-lg text-bugis-champagne focus:outline-none focus:border-bugis-gold"></textarea>
+                </div>
+                <button type="submit" class="w-full py-2.5 gold-gradient-bg text-bugis-dark font-bold text-xs rounded-lg hover:brightness-110 transition shadow-lg">
+                    Kirim Ucapan & Konfirmasi
+                </button>
+            </form>
+
+            <!-- UCAPAN LIST -->
+            <div class="space-y-3">
+                <h3 class="font-cinzel text-sm font-bold text-bugis-gold mb-3 flex items-center justify-between">
+                    <span>Doa Restu Tamu</span>
+                    <span id="ucapan-count" class="text-xs bg-bugis-crimson px-2 py-0.5 rounded-full text-bugis-gold">0</span>
+                </h3>
+                <div id="wishes-container" class="space-y-3 max-h-72 overflow-y-auto pr-1">
+                    <!-- Wish items will be rendered here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="py-8 px-6 text-center bugis-pattern border-t border-bugis-gold/30">
+            <h3 class="font-cinzel text-lg font-bold text-bugis-gold mb-1">Safmei & Jaehyun</h3>
+            <p class="text-[10px] text-gray-300">Terima kasih atas doa & kehadiran Anda</p>
+            <p class="text-[9px] text-gray-400 mt-4">Designed with Bugis Royal Silk Theme</p>
+        </footer>
+
+    </main>
+
+    <!-- FLOATING NAVIGATION DOCK -->
+    <nav class="fixed bottom-3 left-1/2 -translate-x-1/2 z-40 bg-bugis-dark/95 border border-bugis-gold/60 rounded-full px-4 py-2 flex items-center gap-6 shadow-2xl backdrop-blur-md">
+        <a href="#home" class="text-bugis-gold hover:text-white transition text-center flex flex-col items-center">
+            <i class="fas fa-home text-sm"></i>
+            <span class="text-[9px] mt-0.5 font-light">Beranda</span>
+        </a>
+        <a href="#profile" class="text-bugis-gold hover:text-white transition text-center flex flex-col items-center">
+            <i class="fas fa-heart text-sm"></i>
+            <span class="text-[9px] mt-0.5 font-light">Profil</span>
+        </a>
+        <a href="#event" class="text-bugis-gold hover:text-white transition text-center flex flex-col items-center">
+            <i class="fas fa-calendar-alt text-sm"></i>
+            <span class="text-[9px] mt-0.5 font-light">Acara</span>
+        </a>
+        <a href="#gallery" class="text-bugis-gold hover:text-white transition text-center flex flex-col items-center">
+            <i class="fas fa-images text-sm"></i>
+            <span class="text-[9px] mt-0.5 font-light">Galeri</span>
+        </a>
+        <a href="#rsvp" class="text-bugis-gold hover:text-white transition text-center flex flex-col items-center">
+            <i class="fas fa-comment-dots text-sm"></i>
+            <span class="text-[9px] mt-0.5 font-light">RSVP</span>
+        </a>
+    </nav>
+
+    <!-- LIGHTBOX MODAL -->
+    <div id="lightbox" class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center p-4" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" class="max-w-full max-h-[85vh] rounded-lg border-2 border-bugis-gold object-contain">
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed top-20 left-1/2 -translate-x-1/2 z-50 gold-gradient-bg text-bugis-dark font-bold text-xs px-4 py-2 rounded-full shadow-2xl transition-all duration-300 opacity-0 pointer-events-none">
+        Berhasil Disalin!
+    </div>
+
+    <script>
+        // 1. OPEN INVITATION & MUSIC CONTROLS
+        const audio = document.getElementById('bg-music');
+        let isPlaying = false;
+
+        function openInvitation() {
+            const cover = document.getElementById('cover-screen');
+            cover.classList.add('opacity-0', 'pointer-events-none');
+            
+            // Play Music
+            playAudio();
+
+            // Show Music Control Button
+            document.getElementById('music-control').classList.remove('hidden');
+
+            setTimeout(() => {
+                cover.style.display = 'none';
+            }, 1000);
+        }
+
+        function playAudio() {
+            audio.play().then(() => {
+                isPlaying = true;
+                updateMusicIcon();
+            }).catch(e => {
+                console.log("Autoplay prevented:", e);
+            });
+        }
+
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+            } else {
+                audio.play();
+                isPlaying = true;
+            }
+            updateMusicIcon();
+        }
+
+        function updateMusicIcon() {
+            const icon = document.getElementById('music-icon');
+            if (isPlaying) {
+                icon.classList.add('animate-spin-slow');
+                icon.classList.remove('fa-pause');
+                icon.classList.add('fa-music');
+            } else {
+                icon.classList.remove('animate-spin-slow');
+                icon.classList.remove('fa-music');
+                icon.classList.add('fa-pause');
+            }
+        }
+
+        // 2. REALTIME COUNTDOWN TIMER (03 November 2026)
+        const targetDate = new Date('November 03, 2026 08:00:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById('days').innerText = days < 10 ? '0' + days : days;
+                document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
+                document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
+                document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
+            } else {
+                document.getElementById('countdown').innerHTML = `<div class="col-span-4 py-2 bg-bugis-crimson text-bugis-gold font-bold text-sm rounded-lg">Hari Bahagia Telah Tiba!</div>`;
+            }
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // 3. LIGHTBOX
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('hidden');
+            lightbox.classList.add('flex');
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.add('hidden');
+            lightbox.classList.remove('flex');
+        }
+
+        // 4. COPY TO CLIPBOARD & TOAST
+        function copyToClipboard(text, bankName) {
+            const tempInput = document.createElement('input');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            showToast(`No. Rekening ${bankName} Berhasil Disalin!`);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.innerText = message;
+            toast.classList.remove('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'pointer-events-none');
+            }, 3000);
+        }
+
+        // 5. RSVP & LOCAL STORAGE WISHES SYSTEM
+        const defaultWishes = [
+            { name: 'Ahmad Fauzi', status: 'Hadir', message: 'Selamat atas pernikahannya Safmei & Jaehyun! Semoga menjadi keluarga sakinah mawaddah warahmah.', time: 'Baru saja' },
+            { name: 'Nur Hidayah', status: 'Hadir', message: 'Selamat memasuki lembaran baru. Bahagia senantiasa untuk kalian berdua.', time: '2 jam yang lalu' }
+        ];
+
+        function getWishes() {
+            const stored = localStorage.getItem('wedding_wishes');
+            return stored ? JSON.parse(stored) : defaultWishes;
+        }
+
+        function renderWishes() {
+            const wishes = getWishes();
+            const container = document.getElementById('wishes-container');
+            document.getElementById('ucapan-count').innerText = wishes.length;
+
+            container.innerHTML = wishes.map(w => `
+                <div class="p-3 bg-bugis-dark border border-bugis-gold/30 rounded-lg space-y-1">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-xs text-bugis-gold">${escapeHtml(w.name)}</span>
+                        <span class="text-[9px] bg-bugis-crimson/50 text-bugis-champagne px-1.5 py-0.5 rounded border border-bugis-gold/40">${escapeHtml(w.status)}</span>
+                    </div>
+                    <p class="text-xs text-gray-300 leading-relaxed">${escapeHtml(w.message)}</p>
+                    <span class="text-[9px] text-gray-500 block text-right">${w.time}</span>
+                </div>
+            `).join('');
+        }
+
+        function submitRSVP(event) {
+            event.preventDefault();
+            const name = document.getElementById('guest-name').value;
+            const status = document.getElementById('guest-status').value;
+            const message = document.getElementById('guest-message').value;
+
+            const wishes = getWishes();
+            wishes.unshift({
+                name: name,
+                status: status,
+                message: message,
+                time: 'Baru saja'
+            });
+
+            localStorage.setItem('wedding_wishes', JSON.stringify(wishes));
+            renderWishes();
+
+            document.getElementById('rsvp-form').reset();
+            showToast('Terima kasih! Ucapan Anda telah terkirim.');
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+
+        // Initialize Wishes on Load
+        window.onload = function() {
+            renderWishes();
+        };
+    </script>
+</body>
+</html>
+```
